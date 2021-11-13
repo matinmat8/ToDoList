@@ -4,7 +4,7 @@ from django.views.generic import View, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class Works(ListView, LoginRequiredMixin):
+class WorksList(ListView, LoginRequiredMixin):
     model = ToDoList
     template_name = 'todolist/works.html'
 
