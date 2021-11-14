@@ -5,8 +5,22 @@
     <title>Title</title>
 </head>
 <body>
+
 {% for obj in object_list %}
-    {{ obj.title }}
+    <div>
+        <p style="font-size:large">{{ obj.title }}</p>
+        <p style="font-size:small; color:#303841">{{ obj.description }}</p>
+        <p style="font-size:small; color:#303841">{{ obj.due_date }}</p>
+    </div>
+    <hr>
+    <br>
 {% endfor %}
+
+    <form id="form" method="POST" action="{% url 'todolist:list' %}">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">submit</button>
+    </form>
+
 </body>
 </html>
