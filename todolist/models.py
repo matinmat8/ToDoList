@@ -18,7 +18,6 @@ class ToDoList(models.Model):
     due_date = models.DateTimeField()
     create_at = models.DateTimeField(auto_now_add=True)
     done = models.BooleanField(default=False)
-    reminder = models.BooleanField(default=False)
     priority = models.CharField(choices=PRIORITY_CHOICES, max_length=10)
     slug = models.SlugField()
 
