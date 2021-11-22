@@ -13,6 +13,7 @@ PRIORITY_CHOICES = (
 
 class ToDoList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tree = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='children')
     title = models.CharField(max_length=75)
     description = models.TextField(blank=True)
     comment = models.TextField(blank=True)
