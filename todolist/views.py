@@ -58,11 +58,11 @@ class FilterView(ListView, LoginRequiredMixin):
         user = request.user
         obj = ToDoList.objects.filter(user=user)
         if due_date:
-            obj = obj.filter(user=user, due_date=due_date)
+            obj = obj.filter(due_date=due_date)
         else:
             pass
         if priority:
-            obj = obj.filter(user=user, priority=priority)
+            obj = obj.filter(priority=priority)
         else:
             pass
         if done == 'on':
@@ -70,7 +70,7 @@ class FilterView(ListView, LoginRequiredMixin):
         else:
             done = False
         if done:
-            obj = obj.filter(user=user, done=done)
+            obj = obj.filter(done=done)
         else:
             pass
         return render(request, template_name='todolist/filter.html', context={'object_list': obj, 'form': form})
