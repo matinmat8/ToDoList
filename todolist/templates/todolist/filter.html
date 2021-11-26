@@ -1,0 +1,21 @@
+<style>
+    #button.sent
+{
+    display:none;
+}
+</style>
+<form class="wpcf7-form" method="POST" action="{% url 'todolist:filter' %}">
+  {{ form.as_p }}
+  {% csrf_token %}
+  <input id="button" type="submit">
+</form>
+
+{% for obj in object_list %}
+    <div>
+        <p style="font-size:large">{{ obj.title }}</p>
+        <p style="font-size:small; color:#303841">{{ obj.description }}</p>
+        <p style="font-size:small; color:#303841">{{ obj.due_date }}</p>
+    </div>
+    <hr>
+    <br>
+{% endfor %}
