@@ -1,21 +1,39 @@
-<style>
-    #button.sent
-{
-    display:none;
-}
-</style>
-<form class="wpcf7-form" method="POST" action="{% url 'todolist:filter' %}">
-  {{ form.as_p }}
-  {% csrf_token %}
-  <input id="button" type="submit">
-</form>
+{% extends 'todolist/base.html' %}
+{% load bootstrap5 %}
 
-{% for obj in object_list %}
-    <div>
-        <p style="font-size:large">{{ obj.title }}</p>
-        <p style="font-size:small; color:#303841">{{ obj.description }}</p>
-        <p style="font-size:small; color:#303841">{{ obj.due_date }}</p>
+{% block title %}hi{% endblock %}
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Static Example</title>
+  <style>body {font-family: Arial, sans-serif;}</style>
+
+
+
+
+{% block main_content %}
+    <div class="container">
+        <form id="form" class="form-control" method="POST" action="{% url 'todolist:filter' %}">
+          {{ form.as_p }}
+          {% csrf_token %}
+          <input class="btn btn-primary" id="button" type="submit">
+        </form>
     </div>
-    <hr>
-    <br>
-{% endfor %}
+    {% for obj in object_list %}
+        <div class="container-sm mt-3">
+            <p style="font-size:large">{{ obj.title }}</p>
+            <p style="font-size:small; color:#303841">{{ obj.description }}</p>
+            <p style="font-size:small; color:#303841">{{ obj.due_date }}</p>
+        </div>
+        <hr>
+        <br>
+    {% endfor %}
+{% endblock %}
+
+{% block javascript %}
+ $(function () {
+    $("#due_date").datepicker({
+      format:'yyyy-mm-dd',
+    });
+  });
+{% endblock %}

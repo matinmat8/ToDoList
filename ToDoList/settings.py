@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     # My apps
     'todolist',
+
+    # Third party apps
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
