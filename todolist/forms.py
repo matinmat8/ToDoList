@@ -48,9 +48,8 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['comment']
 
-    widgets = {
-        'comment': forms.TextInput(attrs={
-            'class': 'form-control',
-            'style': 'display:inline;'
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        self.fields['comment'].widget.attrs.update({
+            'class': 'form-control w-25 mx-3 mt-2'
         })
-    }

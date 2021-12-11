@@ -8,6 +8,11 @@
     <p style="font-size:small; color:gray">{{ work.due_date }}</p>
     <br>
     <h4>comments</h4>
+      <form method="post" action="{% url 'todolist:add_comment' work.pk %}">
+          {% csrf_token %}
+          {{ comment_form.as_p }}
+          <button style="display: inline; margin:-85px 0 0 260px" class="btn btn-dark btn-sm" type="submit">Add</button>
+      </form>
     {% for comment in comments %}
         <p style="font-size:small; color:#303841" class="mx-3">{{ comment.comment }}</p>
     {% empty %}
