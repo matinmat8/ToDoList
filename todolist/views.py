@@ -10,14 +10,14 @@ from .models import ToDoList, Comment
 from .forms import AddWorkForm, FilterForm
 
 from django.views.generic import ListView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def index(request):
     return render(request, 'todolist/base.html')
 
 
-class WorksList(ListView, LoginRequiredMixin):
+@method_decorator(login_required, name='dispatch')
+class WorksList(ListView):
     model = ToDoList
     template_name = 'todolist/works.html'
 
@@ -69,7 +69,8 @@ class GetChildren(View):
         return redirect(url)
 
 
-class FilterView(ListView, LoginRequiredMixin):
+@method_decorator(login_required, name='dispatch')
+class FilterView(ListView):
     template_name = 'todolist/filter.html'
     today = datetime.date.today()
 
