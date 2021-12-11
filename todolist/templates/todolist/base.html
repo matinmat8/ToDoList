@@ -20,7 +20,7 @@
   <div class="container-sm">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'todolist:list' %}">ToDoList</a>
+        <a class="navbar-brand" href="{% url 'todolist:index' %}">ToDoList</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -44,20 +44,42 @@
       </div>
     </nav>
   </div>
+
+<nav class="navbar fixed-bottom navbar-light bg-light">
+  <div class="container-fluid">
+    <p style="margin-left: 450px" class="navbar-nav">created by matinmat8</p>
+  </div>
+</nav>
     <div>
         <main>
             {% block main_content %}
+              <div  class="container-sm mt-3">
+                  <h3>ToDoList App</h3>
+                  <p class="lead">This is a web application for plan your works and don't forget your works, we recommend you
+                      to make an account and plan your works.</p>
+              </div>
             {% endblock %}
         </main>
+
+        <footer>
+            {% block footer %}
+            {% endblock %}
+        </footer>
+
     </div>
-
-    <footer>
-        {% block footer %}
-        {% endblock %}
-    </footer>
-
     <script>
         {% block javascript %}
+             $(function () {
+                $("#due_date").datepicker({
+                  format:'yyyy-mm-dd',
+                });
+              });
+
+            function ShowForm() {
+               document.getElementById('Add-Work').style.display = "none";
+               document.getElementById('form').style.display = "block";
+            }
+
         {% endblock %}
     </script>
 </body>

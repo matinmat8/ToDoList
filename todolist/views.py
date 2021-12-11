@@ -13,6 +13,10 @@ from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
+def index(request):
+    return render(request, 'todolist/base.html')
+
+
 class WorksList(ListView, LoginRequiredMixin):
     model = ToDoList
     template_name = 'todolist/works.html'
