@@ -10,20 +10,13 @@
         <hr>
         <br>
     {% endfor %}
-
-    <form style="margin-top:25px;" class="form-control" id="form" method="POST" action="{% url 'todolist:list' %}">
-        {{ form.as_p }}
-        {% csrf_token %}
-          <input class="btn btn-primary" id="button" type="submit">
-    </form>
-    <br>
-    <a class="link-dark mx-3 fs-4 text" href="{% url 'todolist:filter' %}">Filter form</a>
-{% endblock %}
-
-{% block javascript %}
- $(function () {
-    $("#due_date").datepicker({
-      format:'yyyy-mm-dd',
-    });
-  });
+    <div class="container-sm mt-2 mb-5">
+        <form style="display:none;" id="form" method="POST" action="{% url 'todolist:list' %}">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input class="btn btn-primary" id="button" type="submit">
+        </form>
+        <button style="margin:15px 0 15px 0;" type="button" onclick="ShowForm()" id="Add-Work" class="btn btn-primary">Add Work +</button>
+        <br>
+    </div>
 {% endblock %}
