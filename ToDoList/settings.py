@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # My apps
     'todolist',
+    'register_login',
 
     # Third party apps
     'bootstrap5',
@@ -130,4 +131,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = '/admin/login/'
+LOGIN_URL = 'register_login:login'
+LOGIN_REDIRECT_URL = 'todolist:index'
+
+LOGOUT_REDIRECT_URL = 'register_login:login'
