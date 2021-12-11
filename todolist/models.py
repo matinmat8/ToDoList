@@ -29,3 +29,6 @@ class ToDoList(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(ToDoList, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('todolist:get_children', kwargs={'pk': self.pk})
