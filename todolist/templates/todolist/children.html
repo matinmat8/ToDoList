@@ -1,0 +1,35 @@
+{% extends 'todolist/base.html' %}
+{% block title %}children{% endblock %}
+
+{% block main_content %}
+        <div class="container-sm mt-3">
+            <p style="font-size:large">{{ work.title }}</p>
+            <p style="font-size:small; color:#303841">{{ work.description }}</p>
+            <p style="font-size:small; color:gray">{{ work.due_date }}</p>
+            <br>
+            <h4>comments</h4>
+            {% for comment in comments %}
+                <p style="font-size:small; color:#303841" class="mx-3">{{ comment.comment }}</p>
+            {% empty %}
+                <p style="font-size:small; color:#303841" class="mx-3">There is no comment yet, you can add some</p>
+            {% endfor %}
+        </div>
+        <hr>
+        <br>
+
+{% endblock %}
+
+{% block footer %}
+
+<h4 style="margin-left:85px">Children</h4>
+{% for child in children %}
+        <div style="margin-left:100px" class="container-sm">
+            <a href="{{ child.get_absolute_url }}" style="font-size:large">{{ child.title }}</a>
+            <p style="font-size:small; color:#303841">{{ child.description }}</p>
+            <p style="font-size:small; color:gray">{{ child.due_date }}</p>
+        </div>
+        <br>
+{% empty %}
+    <p style="margin-left:100px">There are no children, you can add</p>
+{% endfor %}
+{% endblock %}
