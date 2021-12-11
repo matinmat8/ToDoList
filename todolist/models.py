@@ -33,7 +33,7 @@ class ToDoList(models.Model):
         return reverse('todolist:get_children', kwargs={'pk': self.pk})
 
 
-class Comments(models.Model):
+class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     for_work = models.ForeignKey(ToDoList, on_delete=models.CASCADE)
     comment = models.CharField(max_length=250, blank=True)
