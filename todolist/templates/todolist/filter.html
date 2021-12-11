@@ -3,20 +3,13 @@
 
 {% block title %}hi{% endblock %}
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Static Example</title>
-  <style>body {font-family: Arial, sans-serif;}</style>
-
-
-
 
 {% block main_content %}
-    <div class="container">
-        <form id="form" class="form-control" method="POST" action="{% url 'todolist:filter' %}">
+    <div class="container-sm mt-2">
+        <form id="form" method="POST" action="{% url 'todolist:filter' %}">
           {{ form.as_p }}
           {% csrf_token %}
-          <input class="btn btn-primary" id="button" type="submit">
+          <input class="btn btn-dark" id="button" type="submit">
         </form>
     </div>
     {% for obj in object_list %}
