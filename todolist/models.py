@@ -16,7 +16,6 @@ class ToDoList(models.Model):
     tree = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='children')
     title = models.CharField(max_length=75)
     description = models.TextField(blank=True)
-    comment = models.TextField(blank=True)
     due_date = models.DateTimeField()
     create_at = models.DateTimeField(auto_now_add=True)
     done = models.BooleanField(default=False)
@@ -32,3 +31,9 @@ class ToDoList(models.Model):
 
     def get_absolute_url(self):
         return reverse('todolist:get_children', kwargs={'pk': self.pk})
+
+
+class Comments(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    for_work = models.ForeignKey(ToDoList, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=250, blank=True)
