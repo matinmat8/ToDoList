@@ -1,9 +1,12 @@
 import datetime
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
+from django.views import View
 
-from .models import ToDoList
+from .models import ToDoList, Comment
 from .forms import AddWorkForm, FilterForm
 
 from django.views.generic import ListView
@@ -34,6 +37,15 @@ class WorksList(ListView, LoginRequiredMixin):
         )
         obj.save()
         return redirect('todolist:list')
+
+
+@method_decorator(login_required, name='dispatch')
+class GetChildren(View):
+    def get(self, *args, **kwargs):
+        work = ToDoList.objects.get(user=self.request.user, pk=self.kwargs['pk'])
+        comments = Comment.objects.filter(user=self.request.user, for_work=work)
+        children = work.children.all()
+        return render(self.request, 'todolist/children.html', {'children': children, 'work': work, 'comments': comments})
 
 
 class FilterView(ListView, LoginRequiredMixin):
