@@ -2,20 +2,20 @@
 {% block title %}children{% endblock %}
 
 {% block main_content %}
-        <div class="container-sm mt-3">
-            <p style="font-size:large">{{ work.title }}</p>
-            <p style="font-size:small; color:#303841">{{ work.description }}</p>
-            <p style="font-size:small; color:gray">{{ work.due_date }}</p>
-            <br>
-            <h4>comments</h4>
-            {% for comment in comments %}
-                <p style="font-size:small; color:#303841" class="mx-3">{{ comment.comment }}</p>
-            {% empty %}
-                <p style="font-size:small; color:#303841" class="mx-3">There is no comment yet, you can add some</p>
-            {% endfor %}
-        </div>
-        <hr>
-        <br>
+  <div class="container-sm mt-3">
+    <p style="font-size:large">{{ work.title }}</p>
+    <p style="font-size:small; color:#303841">{{ work.description }}</p>
+    <p style="font-size:small; color:gray">{{ work.due_date }}</p>
+    <br>
+    <h4>comments</h4>
+    {% for comment in comments %}
+        <p style="font-size:small; color:#303841" class="mx-3">{{ comment.comment }}</p>
+    {% empty %}
+        <p style="font-size:small; color:#303841" class="mx-3">There is no comment yet, you can add some</p>
+    {% endfor %}
+    <hr>
+    <br>
+  </div>
 
 {% endblock %}
 
@@ -23,7 +23,7 @@
 
 <h4 style="margin-left:85px">Children</h4>
 {% for child in children %}
-        <div style="margin-left:100px" class="container-sm">
+        <div style="margin-left:100px" class="container-sm mt-3">
             <a href="{{ child.get_absolute_url }}" style="font-size:large">{{ child.title }}</a>
             <p style="font-size:small; color:#303841">{{ child.description }}</p>
             <p style="font-size:small; color:gray">{{ child.due_date }}</p>
@@ -32,4 +32,32 @@
 {% empty %}
     <p style="margin-left:100px">There are no children, you can add</p>
 {% endfor %}
+
+<div class="container-sm">
+    <hr>
+</div>
+
+<h4 style="margin:30px 0 15px 85px;">Add Children</h4>
+  <div class="container-sm">
+    <form style="margin:30px 0 15px 0; display:none;" id="form" method="POST" action="{% url 'todolist:get_children' work.pk %}">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input class="btn btn-primary" id="button" type="submit">
+    </form>
+    <button style="margin:15px 0 15px 0;" type="button" onclick="ShowForm()" id="Add-Child" class="btn btn-primary">Add Child +</button>
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+ $(function () {
+    $("#due_date").datepicker({
+      format:'yyyy-mm-dd',
+    });
+  });
+
+function ShowForm() {
+   document.getElementById('Add-Child').style.display = "none";
+   document.getElementById('form').style.display = "block";
+}
 {% endblock %}
