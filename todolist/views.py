@@ -42,10 +42,27 @@ class WorksList(ListView, LoginRequiredMixin):
 @method_decorator(login_required, name='dispatch')
 class GetChildren(View):
     def get(self, *args, **kwargs):
+        form = AddWorkForm()
         work = ToDoList.objects.get(user=self.request.user, pk=self.kwargs['pk'])
         comments = Comment.objects.filter(user=self.request.user, for_work=work)
         children = work.children.all()
-        return render(self.request, 'todolist/children.html', {'children': children, 'work': work, 'comments': comments})
+        return render(self.request, 'todolist/children.html', {'children': children, 'work': work,
+                                                               'comments': comments, 'form': form})
+
+    def post(self, *args, **kwargs):
+        request = self.request
+        work = ToDoList.objects.get(user=self.request.user, pk=self.kwargs['pk'])
+        obj = ToDoList.objects.create(
+            user=request.user,
+            title=request.POST.get('title'),
+            tree=work,
+            due_date=request.POST.get('due_date'),
+            description=request.POST.get('description'),
+            priority=request.POST.get('priority'),
+        )
+        obj.save()
+        url = work.get_absolute_url()
+        return redirect(url)
 
 
 class FilterView(ListView, LoginRequiredMixin):
