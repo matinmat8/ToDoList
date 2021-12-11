@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import ToDoList, PRIORITY_CHOICES
+from .models import ToDoList, PRIORITY_CHOICES, Comment
 
 
 class AddWorkForm(ModelForm):
@@ -22,7 +22,7 @@ class AddWorkForm(ModelForm):
                 'class': 'form-select w-25 mx-3',
             }),
             'due_date': forms.DateInput(attrs={'class': 'form-control w-25 mx-3', 'id': 'due_date',
-            })
+                                               })
         }
 
 
@@ -41,3 +41,16 @@ class FilterForm(forms.Form):
         self.fields['done'].widget.attrs.update({
             'class': 'form-check-label mx-3',
         }),
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment']
+
+    widgets = {
+        'comment': forms.TextInput(attrs={
+            'class': 'form-control',
+            'style': 'display:inline;'
+        })
+    }

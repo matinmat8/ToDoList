@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from .models import ToDoList, Comment
-from .forms import AddWorkForm, FilterForm
+from .forms import AddWorkForm, FilterForm, CommentForm
 
 from django.views.generic import ListView
 
@@ -47,11 +47,13 @@ class WorksList(ListView):
 class GetChildren(View):
     def get(self, *args, **kwargs):
         form = AddWorkForm()
+        comment_form = CommentForm()
         work = ToDoList.objects.get(user=self.request.user, pk=self.kwargs['pk'])
         comments = Comment.objects.filter(user=self.request.user, for_work=work)
         children = work.children.all()
         return render(self.request, 'todolist/children.html', {'children': children, 'work': work,
-                                                               'comments': comments, 'form': form})
+                                                               'comments': comments, 'form': form,
+                                                               'comment_form': comment_form})
 
     def post(self, *args, **kwargs):
         request = self.request
@@ -63,6 +65,19 @@ class GetChildren(View):
             due_date=request.POST.get('due_date'),
             description=request.POST.get('description'),
             priority=request.POST.get('priority'),
+        )
+        obj.save()
+        url = work.get_absolute_url()
+        return redirect(url)
+
+
+class AddComment(View):
+    def post(self, request, *args, **kwargs):
+        work = ToDoList.objects.get(user=self.request.user, pk=self.kwargs['pk'])
+        obj = Comment.objects.create(
+            for_work=work,
+            user=request.user,
+            comment=request.POST.get('comment')
         )
         obj.save()
         url = work.get_absolute_url()
