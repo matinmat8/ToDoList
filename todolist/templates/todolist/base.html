@@ -35,10 +35,10 @@
         <div class="d-flex">
             {% if user.is_authenticated %}
                 <div style="margin-left: 230px">Welcome {{ user.username }}</div>
-                <div style="margin-left:10px"><a href="{% url 'admin:logout' %}">LogOut</a></div>
+                <div style="margin-left:10px"><a href="{% url 'register_login:logout' %}">LogOut</a></div>
             {% else %}
                 <div style="margin-left: 230px">please login</div>
-                <div style="margin-left:10px"><a href="{% url 'admin:login' %}">Login</a></div>
+                <div style="margin-left:10px"><a href="{% url 'register_login:login' %}">Login</a></div>
             {% endif %}
         </div>
       </div>

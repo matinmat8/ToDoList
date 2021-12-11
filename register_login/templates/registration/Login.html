@@ -1,0 +1,16 @@
+{% extends 'todolist/base.html' %}
+{% block title %}login{% endblock %}
+
+{% block main_content %}
+
+  <div class="container-sm">
+    <h1>Log in</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-dark">Login</button>
+      <p>Don't have an account? Create One <a href="{% url 'register_login:register' %}"> here </a></p>
+      <p><a href="{% url 'register_login:reset_password' %}"> do you forgot password? </a></p>
+    </form>
+  </div>
+{% endblock %}
