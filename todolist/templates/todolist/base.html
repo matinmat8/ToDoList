@@ -17,6 +17,33 @@
 </head>
 
 <body>
+  <div class="container-sm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'todolist:list' %}">ToDoList</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="{% url 'todolist:list' %}">Works</a>
+            <a class="nav-link" href="{% url 'todolist:filter' %}">Filter</a>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="d-flex">
+            {% if user.is_authenticated %}
+                <div style="margin-left: 230px">Welcome {{ user.username }}</div>
+                <div style="margin-left:10px"><a href="{% url 'admin:logout' %}">LogOut</a></div>
+            {% else %}
+                <div style="margin-left: 230px">please login</div>
+                <div style="margin-left:10px"><a href="{% url 'admin:login' %}">Login</a></div>
+            {% endif %}
+        </div>
+      </div>
+    </nav>
+  </div>
     <div>
         <main>
             {% block main_content %}
