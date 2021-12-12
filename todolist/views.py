@@ -74,6 +74,7 @@ class GetChildren(View):
         return redirect(url)
 
 
+@method_decorator(login_required, name='dispatch')
 class AddComment(View):
     def post(self, request, *args, **kwargs):
         work = ToDoList.objects.get(user=self.request.user, pk=self.kwargs['pk'])
@@ -87,11 +88,13 @@ class AddComment(View):
         return redirect(url)
 
 
+@method_decorator(login_required, name='dispatch')
 class DeleteWork(DeleteView):
     model = ToDoList
     success_url = reverse_lazy('todolist:list')
 
 
+@method_decorator(login_required, name='dispatch')
 class DeleteComment(DeleteView):
     model = Comment
     success_url = reverse_lazy('todolist:list')
