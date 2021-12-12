@@ -94,7 +94,7 @@ class DeleteWork(DeleteView):
 
 class DeleteComment(DeleteView):
     model = Comment
-    success_url = reverse_lazy('todolist:get_children')
+    success_url = reverse_lazy('todolist:list')
 
     # Handle deleting without confirm page
     def get(self, request, *args, **kwargs):
