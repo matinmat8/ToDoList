@@ -5,7 +5,12 @@
   <div class="container-sm mt-3">
     <p style="font-size:large">{{ work.title }}</p>
     <p style="font-size:small; color:#303841">{{ work.description }}</p>
-    <p style="font-size:small; color:gray">{{ work.due_date }}</p>
+    <p style="font-size:small; display:inline; margin-right:10px; color:gray">{{ work.due_date }}</p>
+    <a  class="link-secondary" href="{% url 'todolist:delete' work.pk %}">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+      </svg>
+    </a>
     <br>
     <h4>comments</h4>
       <form method="post" action="{% url 'todolist:add_comment' work.pk %}">
@@ -31,7 +36,12 @@
         <div style="margin-left:100px" class="container-sm mt-3">
             <a href="{{ child.get_absolute_url }}" style="font-size:large">{{ child.title }}</a>
             <p style="font-size:small; color:#303841">{{ child.description }}</p>
-            <p style="font-size:small; color:gray">{{ child.due_date }}</p>
+            <p style="font-size:small; display:inline; color:gray">{{ child.due_date }}</p>
+            <a  class="link-secondary" href="{% url 'todolist:delete' work.pk %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                </svg>
+            </a>
         </div>
         <br>
 {% empty %}
