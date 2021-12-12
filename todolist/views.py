@@ -2,9 +2,8 @@ import datetime
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 
@@ -86,6 +85,35 @@ class AddComment(View):
         obj.save()
         url = work.get_absolute_url()
         return redirect(url)
+
+
+@method_decorator(login_required, name='dispatch')
+class DoneWork(View):
+    def post(self, request, *args, **kwargs):
+        work = ToDoList.objects.get(user=request.user, pk=kwargs['pk'])
+        url = reverse('todolist:get_children', kwargs={'pk': self.kwargs['pk']})
+        done = request.POST.get('done')
+        page = request.POST.get('page')
+        # Handle changing done field for filter page and return filter page
+        if page == 'filter':
+            if done == 'True':
+                work.done = True
+                work.save()
+                return redirect('todolist:filter')
+            else:
+                work.done = False
+                work.save()
+            return redirect('todolist:filter')
+        # Handle changing done field for children page and return children page
+        else:
+            if done == 'True':
+                work.done = True
+                work.save()
+                return redirect(url)
+            else:
+                work.done = False
+                work.save()
+            return redirect(url)
 
 
 @method_decorator(login_required, name='dispatch')
