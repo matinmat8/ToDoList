@@ -78,6 +78,22 @@
             function ShowForm() {
                document.getElementById('Add-Work').style.display = "none";
                document.getElementById('form').style.display = "block";
+            };
+            // send form for work object
+            function send_true() {
+                document.getElementById('done').submit();
+            };
+
+            function send_false() {
+                document.getElementById('done_false').submit();
+            };
+
+            // send form for child object
+            function send_form_true() {
+                document.getElementById('done_form_true').submit();
+            };
+            function send_form_false() {
+                 document.getElementById('done_form_false').submit();
             }
 
         {% endblock %}
