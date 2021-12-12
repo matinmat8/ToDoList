@@ -6,6 +6,23 @@
     <p style="font-size:large">{{ work.title }}</p>
     <p style="font-size:small; color:#303841">{{ work.description }}</p>
     <p style="font-size:small; display:inline; margin-right:10px; color:gray">{{ work.due_date }}</p>
+
+    <!-- Handle done form -->
+    {% if work.done %}
+      <form style="display:inline; margin-right:15px" id="done" method="post" action="{% url 'todolist:done_work' work.pk %}">
+          {% csrf_token %}
+          <label style="color:gray;">Done:</label>
+          <input name="done" class="form-check-input" type="checkbox" onclick="send_true()" value="False" checked>
+      </form>
+    {% else %}
+      <form style="display:inline; margin-right:15px" id="done_false" method="post" action="{% url 'todolist:done_work' work.pk %}">
+          {% csrf_token %}
+          <label style="color:gray;">Done:</label>
+          <input name="done" class="form-check-input" type="checkbox" value="True" onclick="send_false()">
+      </form>
+    {% endif %}
+    <!-- end of the done form -->
+
     <a  class="link-secondary" href="{% url 'todolist:delete' work.pk %}">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
         <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
@@ -42,6 +59,23 @@
             <a href="{{ child.get_absolute_url }}" style="font-size:large">{{ child.title }}</a>
             <p style="font-size:small; color:#303841">{{ child.description }}</p>
             <p style="font-size:small; display:inline; color:gray">{{ child.due_date }}</p>
+
+            <!-- Handle done form -->
+            {% if child.done %}
+              <form style="display:inline; margin-right:15px" id="done_form_true" method="post" action="{% url 'todolist:done_work' child.pk %}">
+                  {% csrf_token %}
+                  <label style="color:gray;">Done:</label>
+                  <input name="done" class="form-check-input" type="checkbox" onclick="send_form_true()" value="False" checked>
+              </form>
+            {% else %}
+              <form style="display:inline; margin-right:15px" id="done_form_false" method="post" action="{% url 'todolist:done_work' child.pk %}">
+                  {% csrf_token %}
+                  <label style="color:gray;">Done:</label>
+                  <input name="done" class="form-check-input" type="checkbox" onclick="send_form_false()" value="True">
+              </form>
+            {% endif %}
+            <!-- end of the done form -->
+
             <a  class="link-secondary" href="{% url 'todolist:delete' work.pk %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                     <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
