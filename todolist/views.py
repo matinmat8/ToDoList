@@ -2,7 +2,9 @@ import datetime
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
 
@@ -10,6 +12,7 @@ from .models import ToDoList, Comment
 from .forms import AddWorkForm, FilterForm, CommentForm
 
 from django.views.generic import ListView
+from django.views.generic.edit import DeleteView
 
 
 def index(request):
@@ -82,6 +85,11 @@ class AddComment(View):
         obj.save()
         url = work.get_absolute_url()
         return redirect(url)
+
+
+class DeleteWork(DeleteView):
+    model = ToDoList
+    success_url = reverse_lazy('todolist:list')
 
 
 @method_decorator(login_required, name='dispatch')
