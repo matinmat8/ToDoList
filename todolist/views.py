@@ -92,6 +92,15 @@ class DeleteWork(DeleteView):
     success_url = reverse_lazy('todolist:list')
 
 
+class DeleteComment(DeleteView):
+    model = Comment
+    success_url = reverse_lazy('todolist:get_children')
+
+    # Handle deleting without confirm page
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+
 @method_decorator(login_required, name='dispatch')
 class FilterView(ListView):
     template_name = 'todolist/filter.html'
