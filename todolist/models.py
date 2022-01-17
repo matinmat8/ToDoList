@@ -4,10 +4,10 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 PRIORITY_CHOICES = (
-    ('WithOUt', 'without'),
-    ('First', 'first'),
-    ('Second', 'second'),
-    ('Third', 'third'),
+    ('without', 0),
+    ('first', 1),
+    ('second', 2),
+    ('third', 3),
 )
 
 
