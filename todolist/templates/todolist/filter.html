@@ -14,7 +14,7 @@
     </div>
     {% for obj in object_list %}
         <div class="container-sm mt-3">
-            <p style="font-size:large">{{ obj.title }}</p>
+            <a href="{{ obj.get_absolute_url }}" style="font-size:large">{{ obj.title }}</a>
             <p style="font-size:small; color:#303841">{{ obj.description }}</p>
             <p style="font-size:small; display:inline; margin-right:10px; color:#303841">{{ obj.due_date }}</p>
 

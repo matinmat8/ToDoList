@@ -139,7 +139,6 @@ class FilterView(ListView):
 
     def get_queryset(self):
         queryset = ToDoList.objects.filter(user=self.request.user, due_date=self.today)
-        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
