@@ -2,16 +2,16 @@ import datetime
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 
 from .models import ToDoList, Comment
-from .forms import AddWorkForm, FilterForm, CommentForm
+from .forms import AddWorkForm, FilterForm, CommentForm, UpdateWorkForm
 
 from django.views.generic import ListView
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView
 
 
 def index(request):
@@ -71,6 +71,23 @@ class GetChildren(View):
         obj.save()
         url = work.get_absolute_url()
         return redirect(url)
+
+# Update works class based view!
+# class UpdateWork(UpdateView):
+#     model = ToDoList
+#     fields = ['title', 'description', 'due_date', 'priority']
+#     template_name_suffix = '_update_form'
+
+
+def update_work(request, pk):
+    obj = get_object_or_404(ToDoList, pk=pk)
+    form = UpdateWorkForm(request.POST or None, instance=obj)
+    if request.method == 'POST':
+        if form.is_valid():
+            url = obj.get_absolute_url()
+            form.save()
+            return redirect(url)
+    return render(request, 'todolist/todolist_update_form.html', context={'form': form})
 
 
 @method_decorator(login_required, name='dispatch')

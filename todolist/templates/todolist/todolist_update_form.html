@@ -1,0 +1,13 @@
+{%  extends 'todolist/base.html' %}
+
+{% block main_content %}
+<div class="container-sm mt-2">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-dark" style="margin-bottom:60px;" type="submit">Update</button>
+    </form>
+</div>
+{% endblock %}
+
+

@@ -53,3 +53,27 @@ class CommentForm(forms.ModelForm):
         self.fields['comment'].widget.attrs.update({
             'class': 'form-control w-25 mx-3 mt-2'
         })
+
+
+class UpdateWorkForm(forms.ModelForm):
+    class Meta:
+        model = ToDoList
+        fields = ['title', 'description', 'due_date', 'priority']
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateWorkForm, self).__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs.update({
+            'class': "form-control form-control-lg",
+            'label': 'Title',
+            'placeholder': 'Add new work...'
+        }),
+        self.fields['description'].widget.attrs.update({
+            'class': "form-floating form-control",
+            'placeholder': 'description'
+        }),
+        self.fields['priority'].widget.attrs.update({
+            'class': 'form-select input-sm'
+        }),
+        self.fields['due_date'].widget.attrs.update({
+            'class': 'form-control input-sm', 'id': 'due_date',
+        }),

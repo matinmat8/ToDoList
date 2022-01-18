@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import WorksList, FilterView, GetChildren, index, AddComment, DeleteWork, DeleteComment, DoneWork
+from .views import WorksList, FilterView, GetChildren, index, AddComment, DeleteWork, DeleteComment, DoneWork, \
+    update_work
 
 app_name = 'todolist'
 
@@ -11,5 +12,6 @@ urlpatterns = [
     path('add_comment/<int:pk>/', AddComment.as_view(), name='add_comment'),
     path('<pk>/delete', DeleteWork.as_view(), name='delete'),
     path('<pk>/delete/comment/', DeleteComment.as_view(), name='delete_comment'),
-    path('list/done/<pk>/', DoneWork.as_view(), name='done_work')
+    path('list/done/<pk>/', DoneWork.as_view(), name='done_work'),
+    path('update/<pk>/', update_work, name='update_work')
 ]
