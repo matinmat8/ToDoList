@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x!d*x)&bpbpf^vr*pg=6#n4)0#k#i8re@4#peeng4se(4u7qq('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
@@ -157,15 +157,3 @@ LOGIN_REDIRECT_URL = 'todolist:index'
 
 LOGOUT_REDIRECT_URL = 'register_login:login'
 
-
-SECURE_SSL_REDIRECT = True
-
-SESSION_COOKIE_SECURE = True
-
-CSRF_COOKIE_SECURE = True
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-PREPEND_WWW = True
-
-BASE_URL = "https://safe-basin-70691.herokuapp.com/"
