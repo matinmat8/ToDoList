@@ -156,3 +156,16 @@ LOGIN_URL = 'register_login:login'
 LOGIN_REDIRECT_URL = 'todolist:index'
 
 LOGOUT_REDIRECT_URL = 'register_login:login'
+
+
+SECURE_SSL_REDIRECT = True
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+PREPEND_WWW = True
+
+BASE_URL = "https://safe-basin-70691.herokuapp.com/"
