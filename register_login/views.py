@@ -23,7 +23,7 @@ def register(request):
 
             # Login the user with login
             login(request, user)
-            return redirect('register_login:index')
+            return redirect('todolist:list')
 
     else:
 
