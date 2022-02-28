@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -84,26 +85,22 @@ WSGI_APPLICATION = 'ToDoList.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'todolist',
-#         'USER': 'matinmat88',
-#         'PASSWORD': 'IF MatinMat8',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'todolist',
+        'USER': 'matinmat88',
+        'PASSWORD': 'IF MatinMat8',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'CONN_MAX_AGE': 500,
     }
 }
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
+
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -163,3 +160,5 @@ LOGIN_REDIRECT_URL = 'todolist:index'
 
 LOGOUT_REDIRECT_URL = 'register_login:login'
 
+# Configure Django App for Heroku.
+django_heroku.settings(locals())
