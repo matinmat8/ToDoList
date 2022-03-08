@@ -16,3 +16,15 @@ class TestingWorkList(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.user, self.user)
 
+    def testing_adding_work(self):
+        data = {
+            'user': self.user,
+            'title': 'this is a test test',
+            'due_date': '2022-04-09',
+            'description': 'this is a testing test',
+            'priority': 'first',
+        }
+        request = self.factory.post('list', data=data)
+        request.user = self.user
+        response = WorksList.as_view()(request)
+        self.assertEqual(response.status_code, 302)
