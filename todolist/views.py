@@ -160,7 +160,8 @@ class FilterView(ListView):
     today = datetime.date.today()
 
     def get_queryset(self):
-        queryset = ToDoList.objects.filter(user=self.request.user, due_date=self.today)
+        obj = ToDoList.objects.filter(user=self.request.user)
+        return obj
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -174,7 +175,7 @@ class FilterView(ListView):
         priority = get_field('priority')
         done = get_field('done')
         user = request.user
-        obj = ToDoList.objects.filter(user=user)
+        obj = self.get_queryset()
         if due_date:
             obj = obj.filter(due_date=due_date)
         else:
