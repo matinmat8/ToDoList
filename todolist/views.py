@@ -7,6 +7,7 @@ import datetime
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist, FieldError, ValidationError
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
@@ -39,15 +40,23 @@ class WorksList(ListView):
         return object_list
 
     def post(self, request, *args, **kwargs):
-        obj = ToDoList.objects.create(
-            user=request.user,
-            title=request.POST.get('title'),
-            due_date=request.POST.get('due_date'),
-            description=request.POST.get('description'),
-            priority=request.POST.get('priority'),
-        )
-        obj.save()
-        return redirect('todolist:list')
+        try:
+            obj = ToDoList.objects.create(
+                user=request.user,
+                title=request.POST.get('title'),
+                due_date=request.POST.get('due_date'),
+                description=request.POST.get('description'),
+                priority=request.POST.get('priority'),
+            )
+            obj.save()
+            messages.INFO(request, "Your work has been saved successfully!")
+            return redirect('todolist:list')
+        except FieldError:
+            messages.ERROR(request, "there is an Error in your fields!")
+            return redirect('todolist:list')
+        except ValidationError:
+            messages.ERROR(request, "there are some validation errors!")
+            return redirect('todolist:list')
 
 
 @method_decorator(login_required, name='dispatch')
