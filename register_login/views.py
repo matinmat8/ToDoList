@@ -48,7 +48,7 @@ class EmailConfirmation(View):
             obj = AccountEmailConfirmation.objects.create(user=user)
 
         if not obj.acceptance:
-            url = 'http://127.0.0.1:8000/register_login/email_confirmation/%s/' % user.pk
+            url = 'https://safe-basin-70691.herokuapp.com/register_login/email_confirmation/%s/' % user.pk
 
             send_mail(subject='Confirmation Email for ToDoList WebSite',
                       message="Dear %s confirm your Email with this link, %s , which that allows us to make sure that "
