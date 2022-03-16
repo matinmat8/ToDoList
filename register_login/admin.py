@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import AccountEmailConfirmation
+
+
+@admin.register(AccountEmailConfirmation)
+class AccountEmailConfirmationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'acceptance')
+    list_filter = ('acceptance',)
