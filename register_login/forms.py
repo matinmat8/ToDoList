@@ -12,3 +12,16 @@ class UserRegister(UserCreationForm):
         model = User
         fields = ('username', 'first_name', 'last_name',
                   'email', 'password1', 'password2',)
+
+
+class AccountActivationForm(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    def __init__(self, *args, **kwargs):
+        super(AccountActivationForm, self).__init__(*args, **kwargs)
+        self.fields['password'].widget.attrs.update({'class': "form-control rounded w-25 mt-1 mx-3"})
+
+# class AccountActivationForm(forms.ModelForm):
+#     password = forms.CharField(widget=forms.PasswordInput)
+#     class Meta:
+#         model = User
