@@ -1,10 +1,11 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.core.mail import send_mail
 
-from .forms import UserRegister, AccountActivationForm
+from .forms import UserRegister, AccountActivationForm, ProfileUpdating
 from .models import AccountEmailConfirmation
 
 
@@ -45,10 +46,11 @@ class EmailConfirmation(View):
         try:
             obj = AccountEmailConfirmation.objects.get(user=user)
         except:
-            obj = AccountEmailConfirmation.objects.create(user=user)
+            obj = AccountEmailConfirmation.objects.create(user=user, slug='%s/%s/%s' % (user.username, user.email, user.pk))
 
         if not obj.acceptance:
             url = 'https://safe-basin-70691.herokuapp.com/register_login/email_confirmation/%s/' % user.pk
+            # url = 'https://safe-basin-70691.herokuapp.com/register_login/email_confirmation/%s/' % obj.slug
 
             send_mail(subject='Confirmation Email for ToDoList WebSite',
                       message="Dear %s confirm your Email with this link, %s , which that allows us to make sure that "
@@ -80,13 +82,31 @@ class AccountActivation(View):
 
     def post(self, *args, **kwargs):
         user = User.objects.get(pk=kwargs['pk'])
+        # obj = AccountEmailConfirmation.objects.get(slug=kwargs['slug'])
         password = self.request.POST.get('password')
         password_checking = user.check_password(password)
-        # print(password, user.password)
         if password_checking:
             obj = AccountEmailConfirmation.objects.get(user=user)
             obj.acceptance = True
             obj.save()
-            return render(self.request, 'register_login/getting_email_confirmation_password.html', {'subject': 'true'})
+            messages.add_message(self.request, messages.SUCCESS, 'Thank you very much for your cooperation! '
+                                                                 'Your email has been verified ;)')
+            return render(self.request, 'register_login/Profile.html')
         else:
-            return render(self.request, 'register_login/getting_email_confirmation_password.html', {'subject': 'false'})
+            messages.add_message(self.request, messages.ERROR, 'There is something wrong, '
+                                                               'You may have entered your password incorrectly!'
+                                                               ' please try again')
+            return redirect('register_login:email_verifying', user.pk)
+
+
+class Profile(View):
+    def get(self, *args, **kwargs):
+        user = self.request.user
+        try:
+            email_confirmation = AccountEmailConfirmation.objects.get(user=user)
+        except:
+            email_confirmation = AccountEmailConfirmation.objects.create(user=user)
+        form = ProfileUpdating(self.request.POST or None, instance=user)
+        return render(self.request, "register_login/Profile.html", context={'user': user,
+                                                                            'form': form,
+                                                                            'confirmation': email_confirmation})
