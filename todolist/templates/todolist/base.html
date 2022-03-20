@@ -50,6 +50,15 @@
     <p style="margin-left: 450px" class="navbar-nav">created by matinmat8</p>
   </div>
 </nav>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="container-sm mt-3 alert {{ message.tags }} alert-dismissible shadow fade show" role="alert">
+        {{ message | safe }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
     <div>
         <main>
             {% block main_content %}

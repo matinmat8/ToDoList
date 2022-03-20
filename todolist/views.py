@@ -49,13 +49,13 @@ class WorksList(ListView):
                 priority=request.POST.get('priority'),
             )
             obj.save()
-            messages.INFO(request, "Your work has been saved successfully!")
+            messages.add_message(request, messages.INFO, "Your work has been saved successfully!")
             return redirect('todolist:list')
         except FieldError:
-            messages.ERROR(request, "there is an Error in your fields!")
+            messages.add_message(request, messages.ERROR, "Your work has been saved successfully!")
             return redirect('todolist:list')
         except ValidationError:
-            messages.ERROR(request, "there are some validation errors!")
+            messages.add_message(request, messages.ERROR, "there are some validation errors!")
             return redirect('todolist:list')
 
 
