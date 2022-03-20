@@ -49,7 +49,7 @@ class WorksList(ListView):
                 priority=request.POST.get('priority'),
             )
             obj.save()
-            messages.add_message(request, messages.INFO, "Your work has been saved successfully!")
+            messages.add_message(request, messages.SUCCESS, "Your work has been saved successfully!")
             return redirect('todolist:list')
         except FieldError:
             messages.add_message(request, messages.ERROR, "Your work has been saved successfully!")
