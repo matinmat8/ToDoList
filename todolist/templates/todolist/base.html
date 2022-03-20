@@ -25,10 +25,11 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="{% url 'todolist:list' %}">Works</a>
-            <a class="nav-link" href="{% url 'todolist:filter' %}">Filter</a>
-          </div>
+          <ul class="nav navbar-nav">
+            <li><a class="nav-link active" aria-current="page" href="{% url 'todolist:list' %}">Works</a></li>
+            <li><a class="nav-link" href="{% url 'todolist:filter' %}">Filter</a></li>
+            <li><a class="nav-link" href="{% url 'register_login:profile' %}">Profile</a></li>
+          </ul>
         </div>
       </div>
       <div class="container-fluid">
