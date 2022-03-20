@@ -21,7 +21,15 @@ class AccountActivationForm(forms.Form):
         super(AccountActivationForm, self).__init__(*args, **kwargs)
         self.fields['password'].widget.attrs.update({'class': "form-control rounded w-25 mt-1 mx-3"})
 
-# class AccountActivationForm(forms.ModelForm):
-#     password = forms.CharField(widget=forms.PasswordInput)
-#     class Meta:
-#         model = User
+
+class ProfileUpdating(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileUpdating, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': "form-control rounded w-25 mt-1 mx-3"})
+        self.fields['email'].widget.attrs.update({'class': "form-control rounded w-25 mt-1 mx-3"})
+        self.fields['first_name'].widget.attrs.update({'class': "form-control rounded w-25 mt-1 mx-3"})
+        self.fields['last_name'].widget.attrs.update({'class': "form-control rounded w-25 mt-1 mx-3"})

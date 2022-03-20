@@ -1,0 +1,17 @@
+{% extends 'todolist/base.html' %}
+
+{% block main_content %}
+    <div class="container-sm mt-3">
+        {% if confirmation.acceptance == False %}
+            <h5 class="text-warning"> Dear {{ user.username }} Please confirm your Email with this
+                <a href="{% url 'register_login:email_confirmation' %}">Link</a> because of that
+                we can do the works which is related to your Email </h5>
+        {% endif %}
+
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="btn btn-dark" type="submit"> Update </button>
+        </form>
+    </div>
+{% endblock %}
