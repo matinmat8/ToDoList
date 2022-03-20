@@ -110,3 +110,13 @@ class Profile(View):
         return render(self.request, "register_login/Profile.html", context={'user': user,
                                                                             'form': form,
                                                                             'confirmation': email_confirmation})
+
+    def post(self, *args, **kwargs):
+        user = self.request.user
+        form = ProfileUpdating(self.request.POST or None, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.add_message(self.request, messages.SUCCESS, 'Your account has been updated!')
+            return redirect('register_login:profile')
+        messages.add_message(self.request, messages.ERROR, 'There is something wrong! try again!')
+        return render(self.request, 'register_login/Profile.html')

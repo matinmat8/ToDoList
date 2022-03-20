@@ -8,10 +8,10 @@
                 we can do the works which is related to your Email </h5>
         {% endif %}
 
-        <form method="post">
+        <form method="post" action="{% url 'register_login:profile' %}">
           {% csrf_token %}
           {{ form.as_p }}
-          <button class="btn btn-dark" type="submit"> Update </button>
+          <button class="btn btn-dark" style="margin-bottom: 50px;" type="submit"> Update </button>
         </form>
     </div>
 {% endblock %}
