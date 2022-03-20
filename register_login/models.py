@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 class AccountEmailConfirmation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     acceptance = models.BooleanField(default=False)
+    # Handling Email Confirmation With Unique URL
+    # slug = models.SlugField()
 
 
 # Creating an acceptance object in different way of view logic, with signals, but I'd rather the view logic because
