@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.core.mail import send_mail
 
@@ -66,6 +68,7 @@ class EmailConfirmation(View):
                           {'subject': "Your Email has already been accepted."})
 
 
+@method_decorator(login_required, name='dispatch')
 class AccountActivation(View):
     def get(self, *args, **kwargs):
         try:
@@ -99,6 +102,7 @@ class AccountActivation(View):
             return redirect('register_login:email_verifying', user.pk)
 
 
+@method_decorator(login_required, name='dispatch')
 class Profile(View):
     def get(self, *args, **kwargs):
         user = self.request.user
