@@ -3,27 +3,28 @@ from django import forms
 from .models import ToDoList, PRIORITY_CHOICES, Comment
 
 
-class AddWorkForm(ModelForm):
+class AddWorkForm(forms.ModelForm):
     class Meta:
         model = ToDoList
         fields = ['title', 'description', 'due_date', 'priority']
 
-        widgets = {
-            'title': forms.TextInput(attrs={
-                'class': "form-control form-control-lg border-0 add-todo-input bg-transparent rounded w-25 mt-1 mx-3",
-                'label': 'Title',
-                'placeholder': 'Add new work...'
-            }),
-            'description': forms.Textarea(attrs={
-                'class': "form-floating form-control w-25 mx-3",
-                'placeholder': 'description'
-            }),
-            'priority': forms.Select(attrs={
-                'class': 'form-select w-25 mx-3',
-            }),
-            'due_date': forms.DateInput(attrs={'class': 'form-control w-25 mx-3', 'id': 'due_date',
-                                               })
-        }
+    def __init__(self, *args, **kwargs):
+        super(AddWorkForm, self).__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs.update({
+            'class': "form-control form-control-lg",
+            'label': 'Title',
+            'placeholder': 'Add new work...'
+        }),
+        self.fields['description'].widget.attrs.update({
+            'class': "form-floating form-control",
+            'placeholder': 'description'
+        }),
+        self.fields['priority'].widget.attrs.update({
+            'class': 'form-select input-sm'
+        }),
+        self.fields['due_date'].widget.attrs.update({
+            'class': 'form-control input-sm', 'id': 'due_date',
+        }),
 
 
 class FilterForm(forms.Form):

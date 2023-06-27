@@ -1,0 +1,18 @@
+I cloned the project again from GitHub and installed the requirements.txt,
+because the project did not show the Git changes.
+
+I changed the python version 3.8 to 3.10 because of the project was not compatible with Python 3.8
+
+_ I have to fix email sending error
+
+_ Add the pinning feature for works
+
+_ Change the front end for showing the works and its children
+
+_ Update and fix filter system
+
+_ Fix the done system in filter page
+
+_ The children of a branch should be done after that branch is done
+
+_ Adding setting to the project to turn on or off some features

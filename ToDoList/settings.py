@@ -10,11 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-import django_heroku
+# import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-import dj_database_url
+# import dj_database_url
 from django.contrib import messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -147,7 +147,7 @@ LOGIN_REDIRECT_URL = 'todolist:index'
 LOGOUT_REDIRECT_URL = 'register_login:login'
 
 # Configure Django App for Heroku.
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 # Django sending Mail configuration
 EMAIL_USE_TLS = True
